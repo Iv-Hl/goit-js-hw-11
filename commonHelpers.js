@@ -1,0 +1,12 @@
+import{i as c,S as p}from"./assets/vendor-8c59ed88.js";(function(){const o=document.createElement("link").relList;if(o&&o.supports&&o.supports("modulepreload"))return;for(const e of document.querySelectorAll('link[rel="modulepreload"]'))i(e);new MutationObserver(e=>{for(const r of e)if(r.type==="childList")for(const n of r.addedNodes)n.tagName==="LINK"&&n.rel==="modulepreload"&&i(n)}).observe(document,{childList:!0,subtree:!0});function t(e){const r={};return e.integrity&&(r.integrity=e.integrity),e.referrerPolicy&&(r.referrerPolicy=e.referrerPolicy),e.crossOrigin==="use-credentials"?r.credentials="include":e.crossOrigin==="anonymous"?r.credentials="omit":r.credentials="same-origin",r}function i(e){if(e.ep)return;e.ep=!0;const r=t(e);fetch(e.href,r)}})();const y="44800036-3797b6ab3e55b410f8e06bcc9",h="https://pixabay.com/api/";async function g(s){const o=`${h}?key=${y}&q=${encodeURIComponent(s)}&image_type=photo&orientation=horizontal&safesearch=true`;try{const t=await fetch(o);if(!t.ok)throw new Error("Failed to fetch images");return t.json()}catch(t){throw console.error("Error fetching images:",t),t}}const a=document.querySelector("#search-form"),b=a.querySelector("input"),l=document.querySelector(".gallery"),f=document.querySelector(".loader");a.addEventListener("submit",async s=>{s.preventDefault();const o=b.value.trim();if(o){L(),w();try{const t=await g(o);t.hits.length===0?$():q(t.hits)}catch(t){console.error("Error:",t),c.error({title:"Error",message:"Something went wrong. Please try again later."})}finally{S()}}});function L(){l.innerHTML=""}function w(){f.classList.remove("hidden")}function S(){f.classList.add("hidden")}function $(){c.info({title:"Sorry!",message:"No images found for your search. Please try a different query!"})}function q(s){const o=s.map(({webformatURL:i,largeImageURL:e,tags:r,likes:n,views:u,comments:d,downloads:m})=>`
+          <a class="gallery-item" href="${e}">
+            <img src="${i}" alt="${r}" loading="lazy" />
+            <div class="info info-wrap">
+              <p class="info-item info-item-css"><b>Likes:</b> ${n}</p>
+              <p class="info-item info-item-css"><b>Views:</b> ${u}</p>
+              <p class="info-item info-item-css"><b>Comments:</b> ${d}</p>
+              <p class="info-item info-item-css"><b>Downloads:</b> ${m}</p>
+            </div>
+          </a>
+        `).join("");l.insertAdjacentHTML("beforeend",o),new p(".gallery a").refresh()}
+//# sourceMappingURL=commonHelpers.js.map
